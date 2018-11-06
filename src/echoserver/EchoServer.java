@@ -17,11 +17,7 @@ public class EchoServer {
 	}
 
 
-
-
-
-
-
+	
 
 	private void start() throws IOException, InterruptedException {
 		ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);

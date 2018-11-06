@@ -4,36 +4,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.lang.Thread;
 
 public class EchoClient {
 	public static final int PORT_NUMBER = 6013;
 
-
-
-
-
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		EchoClient client = new EchoClient();
 		client.start();
 	}
 
-
-
-
-
-
-
-	private void start() throws IOException {
+	private void start() throws IOException, InterruptedException {
 		Socket socket = new Socket("localhost", PORT_NUMBER);
 
 		InputStream socketInputStream = socket.getInputStream();
 		OutputStream socketOutputStream = socket.getOutputStream();
 
-		ClientThread thread = new ClientThread(socketInputStream, socketOutputStream);
+		Thread keys = new Thread(new KeyboardReader(socket));
+		keys.start();
 
-		thread.start();
+		Thread writer = new Thread(new ScreenWriter(socket));
+		writer.start();
 
-		thread.join();
+		keys.join();
+		writer.join();
 
 		/*InputStream socketInputStream = socket.getInputStream();
 		OutputStream socketOutputStream = socket.getOutputStream();

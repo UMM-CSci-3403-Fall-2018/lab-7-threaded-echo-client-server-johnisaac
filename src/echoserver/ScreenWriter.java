@@ -3,30 +3,31 @@ package echoserver;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.lang.Thread;
 
+public class ScreenWriter implements Runnable {
 
-public class KeyboardReader implements Runnable {
-    //InputStream userInput = new InputStreamreader(System.in);
+    InputStream in;
     Socket socket;
 
-    public KeyboardReader(Socket socket){
+    public ScreenWriter(Socket socket) {
         this.socket = socket;
-
     }
 
     @Override
     public void run() {
         try {
-            OutputStream out = socket.getOutputStream();
+            in = socket.getInputStream();
             int readByte;
-            while ((readByte = System.in.read()) != -1) {
-                out.write(readByte);
+            while ((readByte = in.read()) != -1) {
+                System.out.write(readByte);
             }
             socket.shutdownOutput();
         } catch (IOException e) {
             System.out.println("IO Exception");
         }
     }
+
+
 }
