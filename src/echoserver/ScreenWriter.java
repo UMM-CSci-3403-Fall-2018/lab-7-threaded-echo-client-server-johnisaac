@@ -25,7 +25,7 @@ public class ScreenWriter implements Runnable {
             }
             socket.shutdownOutput();
         } catch (IOException e) {
-            System.out.println("IO Exception");
+            System.out.println(e);
         }
     }
 
