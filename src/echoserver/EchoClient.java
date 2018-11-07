@@ -17,9 +17,6 @@ public class EchoClient {
 	private void start() throws IOException, InterruptedException {
 		Socket socket = new Socket("localhost", PORT_NUMBER);
 
-		InputStream socketInputStream = socket.getInputStream();
-		OutputStream socketOutputStream = socket.getOutputStream();
-
 		Thread keys = new Thread(new KeyboardReader(socket));
 		keys.start();
 
@@ -28,16 +25,5 @@ public class EchoClient {
 
 		keys.join();
 		writer.join();
-
-		/*InputStream socketInputStream = socket.getInputStream();
-		OutputStream socketOutputStream = socket.getOutputStream();
-		int readByte;
-		while ((readByte = System.in.read()) != -1) {
-			socketOutputStream.write(readByte);
-			int socketByte = socketInputStream.read();
-			System.out.write(socketByte);
-		}
-		System.out.flush();*/
-
 	}
 }

@@ -23,7 +23,10 @@ public class ScreenWriter implements Runnable {
             while ((readByte = in.read()) != -1) {
                 System.out.write(readByte);
             }
-            socket.shutdownOutput();
+
+            System.out.flush();
+            in.close();
+
         } catch (IOException e) {
             System.out.println(e);
         }

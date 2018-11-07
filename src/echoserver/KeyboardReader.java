@@ -8,7 +8,6 @@ import java.net.Socket;
 
 
 public class KeyboardReader implements Runnable {
-    //InputStream userInput = new InputStreamreader(System.in);
     Socket socket;
 
     public KeyboardReader(Socket socket){
